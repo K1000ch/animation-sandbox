@@ -44,3 +44,17 @@ page '/*.txt', layout: false
 #   activate :minify_css
 #   activate :minify_javascript
 # end
+
+# 以下、追記したもの
+
+# Use relative URLs
+activate :relative_assets
+set :relative_links, true
+
+# Reload the browser automatically whenever files change
+configure :development do
+  activate :livereload
+end
+
+#clean URL
+activate :directory_indexes
