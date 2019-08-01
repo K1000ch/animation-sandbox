@@ -1,29 +1,24 @@
 <script src="https://unpkg.com/grimoirejs-preset-basic/register/grimoire-preset-basic.js"></script>
 
 
-
 <script type="text/goml" id="canvas1">
-  <goml>
-   <scene>
-    <camera/>
-    <mesh color="red" position="0,0,0"/>
-   </scene>
-  </goml>
-</script>
-<script type="text/goml" class="qwer">
-  <goml>
-   <scene>
-    <camera/>
-    <mesh color="green" position="0,0,0"/>
-   </scene>
-  </goml>
+<goml>
+  <scene>
+    <camera position="0,0,-10">
+      <camera.components>
+        <MouseCameraControl/>
+      </camera.components>
+    </camera>
+    <mesh geometry="cube" color="red" position="0,0,0"/>
+  </scene>
+</goml>
+
 </script>
 
 <script>
 gr(function(){
   setTimeout(function(){
-    gr("#canvas1")("mesh").setAttribute("color","grey");
-    gr(".qwer")("mesh").setAttribute("color","grey");
+    gr("#canvas1")("mesh").setAttribute("color","blue");
   },1000);
 });
 </script>
