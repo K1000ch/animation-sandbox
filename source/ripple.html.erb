@@ -1,0 +1,30 @@
+<h2>Pool</h2>
+
+<section class="ripplePage">
+</section>
+
+
+<style>
+  .ripplePage{
+    width: 80vw;
+    height: 80vh;
+    margin: 0 auto;
+    background-image: url("http://localhost:4567/images/mansour-kiaei-Ye7qY2c79iM-unsplash.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+</style>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js" 
+  integrity="sha256-aL06cXkAHBsVHteJnhSJy9aF3aR4BxwD38ityFHhb4k="
+  crossorigin="anonymous">
+</script>
+
+<script>
+$('.ripplePage').ripples({
+	resolution: 512,
+	dropRadius: 20,
+	perturbance: 0.04,
+});
+</script>
