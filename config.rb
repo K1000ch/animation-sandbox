@@ -50,6 +50,8 @@ page '/*.txt', layout: false
 # Use relative URLs
 activate :relative_assets
 set :relative_links, true
+#ビルド時のリンク切れ対策
+set :strip_index_file, false
 
 # Reload the browser automatically whenever files change
 configure :development do
