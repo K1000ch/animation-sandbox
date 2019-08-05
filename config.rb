@@ -60,3 +60,6 @@ end
 
 #clean URL
 activate :directory_indexes
+
+
+set :images_dir, 'images'
