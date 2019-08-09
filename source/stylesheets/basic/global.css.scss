@@ -1,11 +1,36 @@
 html,body{
 	width: 100vw;
-	height: 100vh;
 	color: #ffffff;
 	background-color: #333333;
+	min-height: 100vh;
 }
 
+.basicHeader{
+	width: 100%;
+	height: 50px;
+	background-color: #1d1d1d;
+	h1{
+		font-size: 1.8rem;
+	}
+}
+.basicFooter{
+	width: 100%;
+	height: 30px;
+	background-color: #1d1d1d;
 
+}
+
+.main{
+	width: 90vw;
+	margin: 0 auto;
+	margin-top: 5vh;
+	margin-bottom: 5vh;
+}
+
+.fireballWrapper{
+	width: 90vw;
+	height: 50vw;
+}
 
 .ripplePage{
 	width: 80vw;

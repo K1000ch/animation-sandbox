@@ -11,10 +11,12 @@
 window.addEventListener( 'load', function() {
 
   // grab the container from the DOM
-  container = document.getElementById( "container" );
+  container = document.getElementById( "fireballContainer" );
 
   // create a scene
   scene = new THREE.Scene();
+
+  
 
   // create a camera the size of the browser window
   // and place it 100 units away, looking towards the center of the scene

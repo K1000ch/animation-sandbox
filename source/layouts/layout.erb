@@ -19,7 +19,9 @@
   </head>
   <body>
     <%= partial "partials/basic/header" %>
-    <%= yield %>
-    <%= partial "partials/footer" %>
+    <div class="main">
+      <%= yield %>
+    </div>
+    <%= partial "partials/basic/footer" %>
   </body>
 </html>
