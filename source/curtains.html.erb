@@ -1,6 +1,8 @@
 ---
 title: Curtains
 ---
+<%= stylesheet_link_tag "pages/curtains" %>
+
 
 <h2>
   Curtains
@@ -8,7 +10,96 @@ title: Curtains
 
 
 <section class="curtainsPage">
+  <!-- div that will hold our WebGL canvas -->
+  <div id="canvas"></div>
+
+  <!-- div used to create our plane -->
+  <div class="plane">
+    <!-- image that will be used as texture by our plane -->
+    <img src="./images/mansour-kiaei-Ye7qY2c79iM-unsplash.jpg" />
+  </div>
 </section>
 
 
-<%= javascript_include_tag "pages/forCurtains" %>
+<%= javascript_include_tag "library/curtains/curtains.min.js" %>
+
+
+
+<script>
+// wait for the DOM to be ready
+window.addEventListener("DOMContentLoaded", function() {
+// set up our WebGL context and append the canvas to our wrapper
+var curtains = new Curtains("canvas");
+// get our plane element
+var planeElement = document.getElementsByClassName("plane")[0];
+// set our initial parameters (basic uniforms)
+var params = {
+vertexShaderID: "plane-vs", // our vertex shader ID
+fragmentShaderID: "plane-fs", // our fragment shader ID
+uniforms: {
+time: {
+name: "uTime", // uniform name that will be passed to our shaders
+type: "1f", // this means our uniform is a float
+value: 0,
+},
+},
+};
+// create our plane
+var plane = curtains.addPlane(planeElement, params);
+// if our plane has been successfully created
+if(plane) {
+plane.onRender(function() {
+// use the onRender method of our plane fired at each requestAnimationFrame call
+plane.uniforms.time.value++; // update our time uniform value
+});
+}
+});
+</script>
+
+<!-- vertex shader -->
+<script id="plane-vs" type="x-shader/x-vertex">
+#ifdef GL_ES
+precision mediump float;
+#endif
+// those are the mandatory attributes that the lib sets
+attribute vec3 aVertexPosition;
+attribute vec2 aTextureCoord;
+// those are mandatory uniforms that the lib sets and that contain our model view and projection matrix
+uniform mat4 uMVMatrix;
+uniform mat4 uPMatrix;
+// our texture matrix that will handle image cover
+uniform mat4 uTextureMatrix0;
+// pass your vertex and texture coords to the fragment shader
+varying vec3 vVertexPosition;
+varying vec2 vTextureCoord;
+void main() {
+vec3 vertexPosition = aVertexPosition;
+gl_Position = uPMatrix * uMVMatrix * vec4(vertexPosition, 1.0);
+// set the varyings
+// here we use our texture matrix to calculate the accurate texture coords
+vTextureCoord = (uTextureMatrix0 * vec4(aTextureCoord, 0.0, 1.0)).xy;
+vVertexPosition = vertexPosition;
+}
+</script>
+<!-- fragment shader -->
+<script id="plane-fs" type="x-shader/x-fragment">
+#ifdef GL_ES
+precision mediump float;
+#endif
+// get our varyings
+varying vec3 vVertexPosition;
+varying vec2 vTextureCoord;
+// the uniform we declared inside our javascript
+uniform float uTime;
+// our texture sampler (default name, to use a different name please refer to the documentation)
+uniform sampler2D uSampler0;
+void main() {
+// get our texture coords from our varying
+vec2 textureCoord = vTextureCoord;
+// displace our pixels along the X axis based on our time uniform
+// textures coords are ranging from 0.0 to 1.0 on both axis
+textureCoord.x += sin(textureCoord.y * 25.0) * cos(textureCoord.x * 25.0) * (cos(uTime / 50.0)) / 25.0;
+// map our texture with the texture matrix coords
+gl_FragColor = texture2D(uSampler0, textureCoord);
+}
+</script>
