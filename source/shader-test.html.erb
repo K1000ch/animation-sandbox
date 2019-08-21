@@ -4,7 +4,7 @@
 <style>
 #container{
   height: 500px;
-  width: 500px;
+  width: 100%;
 }
 </style>
 
@@ -36,6 +36,8 @@
 			var uniforms;
 			init();
 			animate();
+
+
 			function init() {
 				container = document.getElementById( 'container' );
 				camera = new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
@@ -57,6 +59,7 @@
 				onWindowResize();
 				window.addEventListener( 'resize', onWindowResize, false );
 			}
+
 			function onWindowResize() {
 				renderer.setSize( container.clientWidth, container.clientHeight );
 			}
