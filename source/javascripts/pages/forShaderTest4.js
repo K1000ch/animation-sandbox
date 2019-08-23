@@ -18,28 +18,32 @@ function init(){
   // var texture = loader.load('../../images/planets/2k_jupiter.jpg');
 
   var uniforms = {
-    'uTex': {
-      type: "t",
-      value: new THREE.TextureLoader().load("../../images/planets/2k_jupiter.jpg") 
-    }
+    resolution: {
+      type: 'v2',
+      value: new THREE.Vector2(container.clientWidth, container.clientHeight),
+    },
+    imageResolution: {
+      type: 'v2',
+      value: new THREE.Vector2(2048, 1356),
+    },
+    texture: {
+      type: 't',
+      value: new THREE.TextureLoader().load("../../images/planets/2k_moon.jpg"), 
+    },
   };
 
   
   var geometry = new THREE.PlaneBufferGeometry( 2, 2 );
 
-  /*
-  var material = new THREE.MeshBasicMaterial(
-    {
-      map: texture
-    }
-  );
-  */
+  
   // Material作成
-  var material = new THREE.ShaderMaterial({
+  var material = new THREE.RawShaderMaterial({
     uniforms: uniforms,
     vertexShader: document.getElementById( 'vertexShader' ).textContent,
-    fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+    fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+    transparent: true,
   });
+
   
   // var material = new THREE.MeshBasicMaterial({color: 0x0099FF});
   // var material = material = new THREE.MeshNormalMaterial();

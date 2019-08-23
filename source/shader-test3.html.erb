@@ -4,7 +4,7 @@
 <style>
 #container{
   height: 500px;
-  width: 100%;
+  width: 70%;
 }
 </style>
 
@@ -14,23 +14,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
 
 <script id="vertexShader" type="x-shader/x-vertex">
-attribute vec3 position;
-attribute vec2 uv;
 
 varying vec2 vUv;
 
-void main(void) {
+void main() {
   vUv = uv;
-  gl_Position = vec4(position, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }
 </script>
 
 <script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+varying vec2 vUv;
+uniform sampler2D uTex;
+
+void main(){
+  gl_FragColor = texture2D(uTex, vUv); 
+}
 </script>
 
 
 
 
-<%= javascript_include_tag "pages/forShaderTest" %>
+<%= javascript_include_tag "pages/forShaderTest3" %>
 <script>
 </script>
