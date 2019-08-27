@@ -4,7 +4,6 @@ var uniforms;
 init();
 animate();
 
-
 function init(){
   container = document.getElementById( 'container' );
 
@@ -54,12 +53,14 @@ function init(){
   renderer = new THREE.WebGLRenderer();
   renderer.setPixelRatio( window.devicePixelRatio );
   container.appendChild( renderer.domElement );
-  onWindowResize();
+  onWindowResize(mesh);
   window.addEventListener( 'resize', onWindowResize, false );
 }
 
-function onWindowResize() {
+function onWindowResize(mesh) {
   renderer.setSize( container.clientWidth, container.clientHeight );
+  mesh.material.uniforms.resolution.value.set(container.clientWidth, container.clientHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function animate( timestamp ) {
@@ -67,3 +68,12 @@ function animate( timestamp ) {
   // uniforms[ "time" ].value = timestamp / 1000;
   renderer.render( scene, camera );
 }
+
+// function resizeWindow(){
+//   canvas.width = window.innerWidth;
+//   canvas.height = window.innerHeight;
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   plane.mesh.material.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+// }
